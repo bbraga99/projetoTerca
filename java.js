@@ -11,7 +11,13 @@ salvar.addEventListener('click',function(e) {
 
     if(tipo != '' && marca != '' && modelo != '' && ano != '' && valor != '' ) {
         veiculo = new Veiculo(tipo,marca,modelo,ano,valor);
-        listaVeiculos.push(veiculo);
+        if ( posicao == '') {
+            listaVeiculos.push(veiculo);
+        } else {
+            listaVeiculos[posicao] = veiculo;
+            posicao = '';
+            salvar.innerHTML = 'Cadastrar';
+        }
         document.querySelector('#tabela').innerHTML =(Listar(listaVeiculos));
         document.querySelectorAll('input').value = '';
     } else {
@@ -19,8 +25,8 @@ salvar.addEventListener('click',function(e) {
     } 
 })
 
-
 listaVeiculos = [];
+posicao = '';
 
 function Listar(lista) {
     let auxHtml = '';
@@ -31,6 +37,16 @@ function Listar(lista) {
                         '<td>'+lista[i].modelo+'</td>'+
                         '<td>'+lista[i].ano+'</td>'+
                         '<td>'+lista[i].valor+'</td>'+ 
+                        '<td>'+
+                            '<a href="#" class="btn btn-warning btAlterar" rel="'+ i +'">'+
+                                'Alterar'+
+                            '<a>'+
+                        '</td>'+
+                        '<td>'+
+                            '<a href="#" class="btn btn-danger btExcluir" rel="'+ i +'">'+
+                                'Excluir'+
+                            '<a>'+
+                        '</td>'+
                     '</tr>'; 
     }
     return auxHtml;
@@ -46,3 +62,22 @@ class Veiculo {
     }
 }
 
+document.querySelector("#tabela").addEventListener('click',function(e) {
+   const el = e.target;
+   if(el.classList.contains('btAlterar')) {
+       salvar.innerHTML = 'Atualizar';
+       posicao = el.getAttribute("rel");
+        document.querySelector("#tipo").value = listaVeiculos[posicao].tipo;
+        document.querySelector("#marca").value = listaVeiculos[posicao].marca;
+        document.querySelector("#modelo").value = listaVeiculos[posicao].modelo;
+        document.querySelector("#ano").value = listaVeiculos[posicao].ano;
+        document.querySelector("#valor").value = listaVeiculos[posicao].valor;
+   }
+})
+
+document.querySelector("#tabela").addEventListener('click',function(e) {
+    const el = e.target;
+    if(el.classList.contains('btExcluir')) {
+         alert('excluindo...');
+    }
+ })
