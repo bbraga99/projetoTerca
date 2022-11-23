@@ -80,7 +80,7 @@ document.querySelector("#tabela").addEventListener('click', function (e) {
 document.querySelector("#tabela").addEventListener('click', function (e) {
     const el = e.target;
     if (el.classList.contains('btExcluir')) {
-        // salvar.innerHTML = 'Atualizar';
+        if(confirm('Tem certeza que deseja excluir?'))
         posicao = el.getAttribute("rel");
         listaVeiculos.splice(parseInt(posicao),1);
 
