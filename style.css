@@ -1,0 +1,13 @@
+body {
+    background-image: url(background.jpg);
+    background-size: cover;
+}
+
+.titulo {
+    color: white;
+    text-align: centerl;
+}
+
+.opacity {
+    opacity: 1;
+}
